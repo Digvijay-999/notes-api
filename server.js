@@ -46,7 +46,7 @@ app.get('/notes/:id', (req, res) => {
   const note = notes.find(n=> n.id ===id);
   if(!note){
     return res.status(404).json({
-        message:"Note not foundd"
+        message:"Note not found"
     });
   }
   res.json(note);
