@@ -38,7 +38,6 @@ app.get("/notes", (req, res) => {
   const filteredNotes = notes.filter(note =>
     note.title.toLowerCase().includes(search.toLowerCase())
   );
-
   res.json(filteredNotes);
 });
 
@@ -47,7 +46,7 @@ app.get('/notes/:id', (req, res) => {
   const note = notes.find(n=> n.id ===id);
   if(!note){
     return res.status(404).json({
-        message:"Note not found"
+        message:"Note not foundd"
     });
   }
   res.json(note);
