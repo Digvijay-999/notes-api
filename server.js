@@ -29,8 +29,31 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/notes", (req, res) => {
-  res.json(notes);
+  const { search } = req.query;
+
+  if (!search) {
+    return res.json(notes);
+  }
+
+  const filteredNotes = notes.filter(note =>
+    note.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  res.json(filteredNotes);
 });
+
+app.get('/notes/:id', (req, res) => {
+  const id= parseInt(req.params.id);
+  const note = notes.find(n=> n.id ===id);
+  if(!note){
+    return res.status(404).json({
+        message:"Note not found"
+    });
+  }
+  res.json(note);
+});
+
+
 
 app.post("/notes", (req, res) => {
     const {title} = req.body;
@@ -50,6 +73,44 @@ app.post("/notes", (req, res) => {
     });
 });
 
+app.put('/notes/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const { title } = req.body;
+  const note = notes.find(n => n.id === id);
+  if (!note) {
+    return res.status(404).json({
+      message: "Note not found"
+    });
+  }
+  note.title = req.body.title;
+  res.json({
+    message: "Note updated successfully",
+    note
+  });
+});
+
+app.delete("/notes/:id", (req, res) => {
+
+  const id = parseInt(req.params.id);
+
+  const index = notes.findIndex(
+    note => note.id === id
+  );
+
+  if (index === -1) {
+    return res.status(404).json({
+      message: "Note not found"
+    });
+  }
+
+  notes.splice(index, 1);
+
+  res.json({
+    message: "Note deleted"
+  });
+
+});
+
 app.listen(PORT, () => { 
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port http://localhost:${PORT}`);
 });
