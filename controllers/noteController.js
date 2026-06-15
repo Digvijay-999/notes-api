@@ -33,6 +33,9 @@ const createNote= (req,res)=>{
 const updateNote= (req,res)=>{
     const {id} = req.params;
     const {title} = req.body;
+    if(!title){
+        return res.status(400).json({message:"Title is required"});
+    }
     const note= notes.find(note=> note.id === parseInt(id));
     if(!note){
         return res.status(404).json({message:"Note not found"});
@@ -47,7 +50,7 @@ const deleteNote= (req,res)=>{
         return res.status(404).json({message:"Note not found"});
     }
     notes.splice(noteIndex,1);
-    res.status(204).json({message:"Note deleted"});
+    res.status(200).json({message:"Note deleted"});
 }
 
 module.exports={

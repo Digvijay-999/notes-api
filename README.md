@@ -1,22 +1,37 @@
 # Notes API
 
-A beginner backend project built using Node.js and Express.
+A REST API built using Node.js and Express.
 
 ## Features
 
-- Welcome route
-- About route
-- Notes route
-- JSON responses
+- Get all notes
+- Search notes
+- Get note by ID
+- Create note
+- Update note
+- Delete note
 
 ## Tech Stack
 
 - Node.js
 - Express.js
 
+## API Endpoints
+
+GET /notes
+
+GET /notes/:id
+
+GET /notes?search=keyword
+
+POST /notes
+
+PUT /notes/:id
+
+DELETE /notes/:id
+
 ## Run Locally
 
-```bash
 npm install
+
 npm run dev
-```
